@@ -1,0 +1,39 @@
+This repository is released under a dual licence.
+
+────────────────────────────────────────────────────────────────────────
+CODE  (everything under src/) — MIT License
+────────────────────────────────────────────────────────────────────────
+Copyright (c) 2026 The authors of "Two anti-phase spatial modes and a
+candidate spatial-persistence regime transition of SARS-CoV-2 in Japan"
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+────────────────────────────────────────────────────────────────────────
+DATA  (everything under data/) — CC-BY 4.0
+────────────────────────────────────────────────────────────────────────
+The processed datasets under data/ are released under the Creative Commons
+Attribution 4.0 International License (CC-BY 4.0):
+https://creativecommons.org/licenses/by/4.0/
+
+These datasets are derived from publicly available weekly COVID-19 sentinel
+surveillance reports published by the Japanese Ministry of Health, Labour and
+Welfare (MHLW). The derived/processed form distributed here adds value through
+aggregation and normalisation; users must attribute both this work and the
+original MHLW source, and should consult the MHLW terms of use for the
+underlying reports.

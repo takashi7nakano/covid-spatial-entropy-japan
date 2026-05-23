@@ -1,0 +1,11 @@
+# Python dependencies for covid-spatial-entropy-japan
+# Versions pinned to match the manuscript "Software and reproducibility" section
+# (Python 3.11). Newer versions generally reproduce the same results, but these
+# are the versions under which the published numbers were generated.
+numpy==1.26.*
+scipy==1.12.*
+pandas==2.2.*
+scikit-learn==1.4.*
+matplotlib==3.8.*
+statsmodels==0.14.*
+ruptures==1.1.*

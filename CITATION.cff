@@ -1,0 +1,35 @@
+cff-version: 1.2.0
+message: "If you use this software or data, please cite both the preprint and this archived release."
+title: "covid-spatial-entropy-japan: analysis pipeline for two anti-phase spatial modes and a candidate spatial-persistence regime transition of SARS-CoV-2 in Japan"
+authors:
+  - family-names: Nakano
+    given-names: Takashi
+  - family-names: Onozuka
+    given-names: Daisuke
+  - family-names: Ikeda
+    given-names: Yoichi
+  - family-names: Washiyama
+    given-names: Kouhei
+  - family-names: Takashima
+    given-names: Yoshihiro
+version: "1.0.0"
+date-released: "2026-05-23"
+license: MIT
+repository-code: "https://github.com/takashi7nakano/covid-spatial-entropy-japan"
+# doi: 10.5281/zenodo.XXXXXXX   # add on Zenodo release
+preferred-citation:
+  type: article
+  title: "Two anti-phase spatial modes and a candidate spatial-persistence regime transition of SARS-CoV-2 in Japan: a 159-week prefecture-level sentinel surveillance study"
+  authors:
+    - family-names: Nakano
+      given-names: Takashi
+    - family-names: Onozuka
+      given-names: Daisuke
+    - family-names: Ikeda
+      given-names: Yoichi
+    - family-names: Washiyama
+      given-names: Kouhei
+    - family-names: Takashima
+      given-names: Yoshihiro
+  year: 2026
+  # doi: 10.1101/XXXX   # add medRxiv DOI once posted
