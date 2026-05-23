@@ -4,32 +4,42 @@ title: "covid-spatial-entropy-japan: analysis pipeline for two anti-phase spatia
 authors:
   - family-names: Nakano
     given-names: Takashi
+    orcid: "https://orcid.org/0000-0003-3157-5328"
   - family-names: Onozuka
     given-names: Daisuke
+    orcid: "https://orcid.org/0000-0001-9596-9188"
   - family-names: Ikeda
     given-names: Yoichi
+    orcid: "https://orcid.org/0000-0002-2235-1464"
   - family-names: Washiyama
     given-names: Kouhei
+    orcid: "https://orcid.org/0000-0002-4942-5689"
   - family-names: Takashima
     given-names: Yoshihiro
+    orcid: "https://orcid.org/0000-0001-8319-4653"
 version: "1.0.0"
 date-released: "2026-05-23"
 license: MIT
 repository-code: "https://github.com/takashi7nakano/covid-spatial-entropy-japan"
-# doi: 10.5281/zenodo.XXXXXXX   # add on Zenodo release
+doi: 10.5281/zenodo.20359405
 preferred-citation:
   type: article
   title: "Two anti-phase spatial modes and a candidate spatial-persistence regime transition of SARS-CoV-2 in Japan: a 159-week prefecture-level sentinel surveillance study"
   authors:
     - family-names: Nakano
       given-names: Takashi
+      orcid: "https://orcid.org/0000-0003-3157-5328"
     - family-names: Onozuka
       given-names: Daisuke
+      orcid: "https://orcid.org/0000-0001-9596-9188"
     - family-names: Ikeda
       given-names: Yoichi
+      orcid: "https://orcid.org/0000-0002-2235-1464"
     - family-names: Washiyama
       given-names: Kouhei
+      orcid: "https://orcid.org/0000-0002-4942-5689"
     - family-names: Takashima
       given-names: Yoshihiro
+      orcid: "https://orcid.org/0000-0001-8319-4653"
   year: 2026
   # doi: 10.1101/XXXX   # add medRxiv DOI once posted
