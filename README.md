@@ -11,8 +11,8 @@ This repository contains the data and code needed to reproduce every
 quantitative result and figure in the manuscript from the frozen input data
 (159 weeks, 2023-W17 to 2026-W19; "n19").
 
-> Preprint: medRxiv DOI — *to be added once posted*.
-> Archived release: Zenodo DOI — *to be added on tagging* (see "Citing" below).
+> Preprint: medRxiv DOI: 10.64898/2026.05.24.26353972 (https://doi.org/10.64898/2026.05.24.26353972)
+> Archived release: Zenodo DOI: 10.5281/zenodo.20359405
 
 ## What the pipeline does
 
@@ -93,8 +93,8 @@ throughout; Okinawa is an isolated node (no land neighbours) by construction.
 
 ## Citing
 
-Please cite the preprint (medRxiv DOI, to be added) and the archived code
-release (Zenodo DOI, to be added). See `CITATION.cff` for machine-readable
+Please cite the preprint (medRxiv DOI: 10.64898/2026.05.24.26353972) and the archived code
+release (Zenodo DOI: 10.5281/zenodo.20359405). See `CITATION.cff` for machine-readable
 metadata.
 
 ## Licence
