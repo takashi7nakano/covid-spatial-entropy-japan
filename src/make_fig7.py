@@ -128,16 +128,18 @@ if len(S_pre_local) > 0:
     pre_mean = S_pre_local.mean()
     axB.hlines(pre_mean, restricted_dates[0], dates[cp_global],
                colors='#2ca02c', linewidth=2.5, alpha=0.75)
-    axB.annotate(f'mean = {pre_mean:.3f}', xy=(restricted_dates[len(S_pre_local)//2], pre_mean),
-                xytext=(0, 12), textcoords='offset points', ha='center',
+    axB.annotate(f'mean = {pre_mean:.3f}', xy=(dates[cp_global], pre_mean),
+                xytext=(-6, 7), textcoords='offset points', ha='right', va='bottom',
                 fontsize=9, color='#2ca02c', fontweight='bold')
 # Post-CP mean
 post_mean = S_post_local.mean()
 axB.hlines(post_mean, dates[cp_global], dates[-1],
            colors='#ff7f0e', linewidth=2.5, alpha=0.75)
-axB.annotate(f'mean = {post_mean:.3f}', xy=(dates[cp_global + len(S_post_local)//2], post_mean),
-            xytext=(0, -16), textcoords='offset points', ha='center',
-            fontsize=9, color='#ff7f0e', fontweight='bold')
+_lbl = next(i for i in range(cp_global, len(dates)) if date_to_epi(dates[i]) == '2026-W07')
+axB.annotate(f'mean = {post_mean:.3f}', xy=(dates[_lbl], post_mean),
+            xytext=(-12, 5), textcoords='offset points', ha='center', va='bottom',
+            fontsize=9, color='#ff7f0e', fontweight='bold',
+            bbox=dict(facecolor='white', alpha=0.75, edgecolor='none', pad=1.0))
 # CUSUM and Bai-Perron secondary markers (epi week labels)
 cusum_idx = t_last + 1 + 7  # 2025-12-11
 bp_idx = t_last + 1 + 11   # 2026-01-08
@@ -190,9 +192,8 @@ axC.set_xticklabels(['2025-W45', '2025-W46', '2025-W47', '2025-W48',
                      '2025-W49', '2025-W50', '2025-W51', '2025-W52'],
                     rotation=20, ha='right', fontsize=8)
 
-plt.suptitle('Figure 7. Data-driven entropy-ceiling-failure change-point detection',
-             fontsize=12, y=0.995, fontweight='bold')
-plt.savefig(os.path.join(_FIG_DIR, 'Fig7_changepoint.png'), dpi=200, bbox_inches='tight')
+# Figure title is supplied by the manuscript caption (BMC style): no in-image title.
+plt.savefig(os.path.join(_FIG_DIR, 'Fig7_changepoint.png'), dpi=300, bbox_inches='tight')
 plt.savefig(os.path.join(_FIG_DIR, 'Fig7_changepoint.pdf'), bbox_inches='tight')
 print('Figure 7 saved: Fig7_changepoint.png, .pdf')
 print(f'\nKey details for caption:')

@@ -97,7 +97,7 @@ plt.rcParams.update({
     'legend.fontsize': 8,
     'xtick.labelsize': 8,
     'ytick.labelsize': 8,
-    'figure.dpi': 150,
+    'figure.dpi': 150,   # 表示用。書き出しは 300 dpi + PDF（2026-08-21 に 180→300 へ引き上げ）
 })
 
 C_PRE = '#1f77b4'      # blue
@@ -173,7 +173,8 @@ axB.grid(True, alpha=0.3)
 axB.legend(loc='lower right', fontsize=8)
 
 plt.tight_layout()
-plt.savefig(f'{OUT}/Fig1_wave_template.png', dpi=180, bbox_inches='tight')
+plt.savefig(f'{OUT}/Fig1_wave_template.png', dpi=300, bbox_inches='tight')
+plt.savefig(f'{OUT}/Fig1_wave_template.pdf', bbox_inches='tight')
 plt.close()
 print('Fig1 done.')
 
@@ -183,7 +184,7 @@ print('Fig1 done.')
 # B-D: simplified geographic vignettes (text only — abbreviated since full map regen is heavy)
 # ============================================================
 fig = plt.figure(figsize=(9, 7))
-gs = fig.add_gridspec(2, 3, height_ratios=[2, 1], hspace=0.4, wspace=0.25)
+gs = fig.add_gridspec(2, 3, height_ratios=[2, 1], hspace=0.4, wspace=0.55)
 
 axA = fig.add_subplot(gs[0, :])
 axA.scatter(S[pre], I_t[pre], c=C_PRE, s=18, alpha=0.55, label=f'Pre-transition (n={len(pre)})')
@@ -196,14 +197,22 @@ rep_dates = [
     ('Mode B', pd.Timestamp('2024-11-24'), '2024-W47', C_NORTH),
     ('Typical post-transition', pd.Timestamp('2026-03-08'), '2026-W10', '#a82020'),
 ]
+# label placement: Mode B is moved into clear space below-left of its marker,
+# where it does not sit on the post-transition points
+LABEL_POS = {
+    'Mode A':                  dict(xytext=(12, 8), textcoords='offset points'),
+    'Mode B':                  dict(xytext=(3.560, 0.307), textcoords='data',
+                                    ha='left', va='bottom'),
+    'Typical post-transition': dict(xytext=(12, 8), textcoords='offset points'),
+}
 for label, dt, ew, col in rep_dates:
     ii = int(np.argmin(np.abs((dates - dt).dt.total_seconds())))
     axA.scatter(S[ii], I_t[ii], s=140, facecolors='none', edgecolors=col, linewidths=2)
     axA.annotate(f'{label}\n({ew})',
                 xy=(S[ii], I_t[ii]),
-                xytext=(12, 8), textcoords='offset points',
                 fontsize=8, color=col, fontweight='bold',
-                arrowprops=dict(arrowstyle='->', color=col, lw=0.8))
+                arrowprops=dict(arrowstyle='->', color=col, lw=0.8),
+                **LABEL_POS[label])
 axA.set_xlabel('Pseudo-entropy S(t)')
 axA.set_ylabel("Global Moran's I(t)")
 axA.set_title('A. Joint scatter: pseudo-entropy vs. global Moran\'s I (159 weeks)', loc='left')
@@ -228,7 +237,8 @@ for j, (label, dt, ew, col) in enumerate(rep_dates):
                 loc='left', fontsize=8.5)
     ax.grid(True, alpha=0.3, axis='x')
 
-plt.savefig(f'{OUT}/Fig2_two_modes.png', dpi=180, bbox_inches='tight')
+plt.savefig(f'{OUT}/Fig2_two_modes.png', dpi=300, bbox_inches='tight')
+plt.savefig(f'{OUT}/Fig2_two_modes.pdf', bbox_inches='tight')
 plt.close()
 print('Fig2 done.')
 
@@ -279,7 +289,7 @@ ax.axvspan(dates[cp_idx], dates.iloc[-1], color=C_POST, alpha=0.08, label='Post-
 ax.axhline(0, color='k', linewidth=0.5, alpha=0.5)
 ax.set_ylabel('Regional KL contribution')
 ax.set_title('A. Regional KL contributions: time series', loc='left')
-ax.legend(loc='upper left', fontsize=7, ncol=2)
+ax.legend(loc='upper left', bbox_to_anchor=(1.01, 1.0), fontsize=7, frameon=False)
 ax.grid(True, alpha=0.3)
 set_epi_week_xaxis(ax, dates.iloc[0], dates.iloc[-1], n_ticks=8)
 
@@ -293,12 +303,17 @@ ax.plot(ew_grid, predict_K2(beta_kyushu, ew_grid), color=C_KYUSHU, linewidth=2, 
 # Mark peaks
 ax.axvline(26, color=C_KYUSHU, linestyle=':', alpha=0.5)
 ax.axvline(51, color=C_NORTH, linestyle=':', alpha=0.5)
-ax.annotate('Mode A peak\nepi wk 26', xy=(26, 0.08), fontsize=8, color=C_KYUSHU, fontweight='bold', ha='center')
-ax.annotate('Mode B peak\nepi wk 51', xy=(51, 0.08), fontsize=8, color=C_NORTH, fontweight='bold', ha='center')
+ax.annotate('Mode A peak\nepi wk 26', xy=(26, 0.08), xytext=(0, -14.4), textcoords='offset points',
+            fontsize=8, color=C_KYUSHU, fontweight='bold', ha='center')
+# placed hard against the epi-week-51 marker; a light white patch keeps the x = 50
+# gridline from running through the text
+ax.annotate('Mode B peak\nepi wk 51', xy=(50.6, 0.295), fontsize=8, color=C_NORTH,
+            fontweight='bold', ha='right', va='top',
+            bbox=dict(facecolor='white', alpha=0.75, edgecolor='none', pad=1.0))
 ax.set_xlabel('Epi week')
 ax.set_ylabel('Regional KL contribution')
 ax.set_title('B. Epi-week-folded view with K = 2 harmonic fits', loc='left')
-ax.legend(loc='lower left', fontsize=7, ncol=2)
+ax.legend(loc='upper left', bbox_to_anchor=(1.01, 1.0), fontsize=7, frameon=False)
 ax.grid(True, alpha=0.3)
 ax.set_xlim(1, 53)
 
@@ -318,12 +333,13 @@ ax.axvline(dates[cp_idx], color=C_CP, linewidth=1.2, linestyle='--', alpha=0.7,
 ax.set_xlabel('Epi week')
 ax.set_ylabel('Observed − fitted')
 ax.set_title('C. Post-transition deviation from pre-transition seasonal model', loc='left')
-ax.legend(loc='lower left', fontsize=8)
+ax.legend(loc='upper left', bbox_to_anchor=(1.01, 1.0), fontsize=8, frameon=False)
 ax.grid(True, alpha=0.3)
 set_epi_week_xaxis(ax, dates.iloc[0], dates.iloc[-1], n_ticks=8)
 
 plt.tight_layout()
-plt.savefig(f'{OUT}/Fig3_seasonal_antiphase.png', dpi=180, bbox_inches='tight')
+plt.savefig(f'{OUT}/Fig3_seasonal_antiphase.png', dpi=300, bbox_inches='tight')
+plt.savefig(f'{OUT}/Fig3_seasonal_antiphase.pdf', bbox_inches='tight')
 plt.close()
 print('Fig3 done.')
 
@@ -336,7 +352,7 @@ print('Fig3 done.')
 # E: Residual distribution
 # ============================================================
 fig = plt.figure(figsize=(11, 9))
-gs = fig.add_gridspec(3, 2, height_ratios=[1, 1.2, 1], hspace=0.45, wspace=0.32)
+gs = fig.add_gridspec(3, 2, height_ratios=[1, 1.2, 1], hspace=0.85, wspace=0.32)
 
 # A: S(t) distributions
 axA = fig.add_subplot(gs[0, 0])
@@ -347,8 +363,8 @@ axA.axvline(S[post].max(), color=C_POST, linestyle='--', linewidth=1, label=f'Po
 axA.axvline(LN47, color='k', linestyle=':', alpha=0.5)
 axA.set_xlabel('Pseudo-entropy S(t)')
 axA.set_ylabel('Density')
-axA.set_title('A. Pseudo-entropy distribution by period', loc='left')
-axA.legend(fontsize=7)
+axA.set_title('A. Pseudo-entropy distribution by period', loc='left', pad=30)
+axA.legend(fontsize=7, ncol=2, loc='lower left', bbox_to_anchor=(0, 1.0), frameon=False)
 axA.grid(True, alpha=0.3)
 
 # B: Aggregate share over time
@@ -366,8 +382,8 @@ axB.axvspan(dates[cp_idx], dates.iloc[-1], color=C_POST, alpha=0.08)
 axB.axvline(dates[cp_idx], color=C_CP, linewidth=1, linestyle='--', alpha=0.7,
            label='CP: 2025-W48')
 axB.set_ylabel('Regional share')
-axB.set_title('B. Regional case share over time', loc='left')
-axB.legend(fontsize=7, ncol=2, loc='upper left')
+axB.set_title('B. Regional case share over time', loc='left', pad=48)
+axB.legend(fontsize=7, ncol=2, loc='lower left', bbox_to_anchor=(0, 1.0), frameon=False)
 axB.grid(True, alpha=0.3)
 set_epi_week_xaxis(axB, dates.iloc[0], dates.iloc[-1], n_ticks=8)
 
@@ -412,8 +428,8 @@ axD.scatter(dates[post], I_t[post], c=C_POST, s=20, alpha=0.85, label='Post-tran
 axD.axvline(dates[cp_idx], color=C_CP, linewidth=1, linestyle='--', alpha=0.7,
            label='CP: 2025-W48')
 axD.set_ylabel("Global Moran's I(t)")
-axD.set_title("D. Moran's I time series with harmonic model", loc='left')
-axD.legend(fontsize=7, loc='upper left')
+axD.set_title("D. Moran's I time series with harmonic model", loc='left', pad=48)
+axD.legend(fontsize=7, ncol=2, loc='lower left', bbox_to_anchor=(0, 1.0), frameon=False)
 axD.grid(True, alpha=0.3)
 set_epi_week_xaxis(axD, dates.iloc[0], dates.iloc[-1], n_ticks=8)
 
@@ -427,11 +443,12 @@ axE.axvline(resid_post.mean(), color=C_POST, linestyle='--', linewidth=1.5,
            label=f'Post mean = {resid_post.mean():+.3f}')
 axE.set_xlabel('Residual from pre-transition K=2 harmonic')
 axE.set_ylabel('Density')
-axE.set_title('E. Residual distribution from pre-transition harmonic model', loc='left')
-axE.legend(fontsize=8)
+axE.set_title('E. Residual distribution from pre-transition harmonic model', loc='left', pad=22)
+axE.legend(fontsize=8, ncol=3, loc='lower left', bbox_to_anchor=(0, 1.0), frameon=False)
 axE.grid(True, alpha=0.3)
 
-plt.savefig(f'{OUT}/Fig4_regime_transition.png', dpi=180, bbox_inches='tight')
+plt.savefig(f'{OUT}/Fig4_regime_transition.png', dpi=300, bbox_inches='tight')
+plt.savefig(f'{OUT}/Fig4_regime_transition.pdf', bbox_inches='tight')
 plt.close()
 print('Fig4 done.')
 
@@ -478,7 +495,8 @@ axB.legend(fontsize=8, loc='lower right')
 axB.grid(True, alpha=0.3)
 
 plt.tight_layout()
-plt.savefig(f'{OUT}/Fig5_phase_plane.png', dpi=180, bbox_inches='tight')
+plt.savefig(f'{OUT}/Fig5_phase_plane.png', dpi=300, bbox_inches='tight')
+plt.savefig(f'{OUT}/Fig5_phase_plane.pdf', bbox_inches='tight')
 plt.close()
 print('Fig5 done.')
 
@@ -513,16 +531,16 @@ axA.axhline(1, color='k', linestyle=':', alpha=0.5, label='Perfect persistence (
 axA.axhline(0, color='k', linewidth=0.5, alpha=0.5)
 axA.set_xlabel('Lag τ (weeks)')
 axA.set_ylabel('Spatial-persistence ratio I(τ) / I(0)')
-axA.set_title('A. Spatial-persistence profile (ratio of mean I)', loc='left')
-axA.legend(fontsize=9, loc='upper right')
+axA.set_title('A. Spatial-persistence profile (ratio of mean I)', loc='left', pad=44)
+axA.legend(fontsize=9, ncol=2, loc='lower left', bbox_to_anchor=(0, 1.0), frameon=False)
 axA.grid(True, alpha=0.3)
 axA.set_xticks(LAGS)
 
 # Annotate the τ=8 values
-axA.annotate(f'{pre_m[-1]:.2f}', xy=(8, pre_m[-1]), xytext=(8, -25),
-            textcoords='offset points', ha='center', fontsize=9, color=C_PRE, fontweight='bold')
-axA.annotate(f'{post_m[-1]:.2f}', xy=(8, post_m[-1]), xytext=(8, 12),
-            textcoords='offset points', ha='center', fontsize=9, color=C_POST, fontweight='bold')
+axA.annotate(f'{pre_m[-1]:.2f}', xy=(8, pre_m[-1]), xytext=(-13, -7),
+            textcoords='offset points', ha='right', va='center', fontsize=9, color=C_PRE, fontweight='bold')
+axA.annotate(f'{post_m[-1]:.2f}', xy=(8, post_m[-1]), xytext=(-13, -9),
+            textcoords='offset points', ha='right', va='center', fontsize=9, color=C_POST, fontweight='bold')
 
 # B: Mean Moran's I at each lag, by period
 means_pre_I = [I_lag[tau][pre][np.isfinite(I_lag[tau][pre])].mean() for tau in LAGS]
@@ -537,13 +555,14 @@ axB.errorbar(LAGS, means_post_I, yerr=se_post_I, marker='s', color=C_POST, linew
 axB.axhline(0, color='k', linewidth=0.5, alpha=0.5)
 axB.set_xlabel('Lag τ (weeks)')
 axB.set_ylabel("Mean Moran's I(τ)")
-axB.set_title('B. Time-lagged bivariate Moran\'s I by period', loc='left')
-axB.legend(fontsize=9)
+axB.set_title('B. Time-lagged bivariate Moran\'s I by period', loc='left', pad=26)
+axB.legend(fontsize=9, ncol=2, loc='lower left', bbox_to_anchor=(0, 1.0), frameon=False)
 axB.grid(True, alpha=0.3)
 axB.set_xticks(LAGS)
 
 plt.tight_layout()
-plt.savefig(f'{OUT}/Fig6_lagged_moran.png', dpi=180, bbox_inches='tight')
+plt.savefig(f'{OUT}/Fig6_lagged_moran.png', dpi=300, bbox_inches='tight')
+plt.savefig(f'{OUT}/Fig6_lagged_moran.pdf', bbox_inches='tight')
 plt.close()
 print('Fig6 done.')
 

@@ -17,14 +17,16 @@ authors:
   - family-names: Takashima
     given-names: Yoshihiro
     orcid: "https://orcid.org/0000-0001-8319-4653"
-version: "1.0.1"
-date-released: "2026-05-27"
+version: "1.1.0"
+date-released: "2026-08-21"
 license: MIT
 repository-code: "https://github.com/takashi7nakano/covid-spatial-entropy-japan"
-doi: 10.5281/zenodo.20359405
+doi: 10.5281/zenodo.20404450
+# ↑ 1.0.1 のバージョン DOI。1.1.0 の公開直後に、新しく発行される
+#   バージョン DOI（または concept DOI）へ差し替えてください。
 preferred-citation:
   type: article
-  title: "Two anti-phase spatial modes and a candidate spatial-persistence regime transition of SARS-CoV-2 in Japan: a 159-week prefecture-level sentinel surveillance study"
+  title: "Two anti-phase spatial modes and a candidate spatial-persistence regime transition of SARS-CoV-2 in Japan: a prefecture-level sentinel surveillance study"
   authors:
     - family-names: Nakano
       given-names: Takashi

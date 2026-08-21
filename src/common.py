@@ -71,17 +71,39 @@ def shannon_entropy(P):
     return -(P * np.log(P + 1e-30)).sum(axis=-1)
 
 
-def morans_I(x, W_rs):
-    """Global Moran's I for one week, using row-standardised weights W_rs."""
+def morans_I(x, W, S0=None):
+    """Global Moran's I for one week.
+
+        I = (n / S0) * (z' W z) / (z' z),   z = x - mean(x)
+
+    `W` is the *binary* symmetric weights matrix from build_W(row_standardize=False)
+    and `S0` its total weight (sum of all entries); if omitted it is computed from W.
+
+    Fixed 2026-08-02. The previous implementation took row-standardised weights,
+    divided the variance term by n a second time, and normalised by the row sum
+    of the standardised matrix. It returned values roughly 55x the published ones,
+    and the discrepancy was not a constant factor — the ratio to the correct value
+    ranged from -22 to +145 across weeks and changed sign — so it did not preserve
+    ratios either. The definition below is the one used in Methods and in
+    regenerate_figs.py::moran_t, and reproduces the published pre-transition mean
+    of 0.313 and post-transition mean of 0.468 (Table 2).
+    """
+    W = np.asarray(W)
+    if S0 is None:
+        S0 = W.sum()
     z = x - x.mean()
-    num = (W_rs * np.outer(z, z)).sum()
-    den = (z ** 2).sum() / len(z)
-    return num / den / W_rs.sum() * len(z)
+    den = (z ** 2).sum()
+    if den == 0:
+        return np.nan
+    return (len(z) / S0) * (W * np.outer(z, z)).sum() / den
 
 
-def morans_I_series(P, W_rs):
+def morans_I_series(P, W, S0=None):
     """Moran's I for every week; returns (T,) array."""
-    return np.array([morans_I(P[t], W_rs) for t in range(P.shape[0])])
+    W = np.asarray(W)
+    if S0 is None:
+        S0 = W.sum()
+    return np.array([morans_I(P[t], W, S0) for t in range(P.shape[0])])
 
 
 def harmonic_X(dates, K=HARMONIC_K):

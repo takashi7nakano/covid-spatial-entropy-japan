@@ -42,13 +42,30 @@ shares = df[pref_cols].values  # (T, 47)
 S = -(shares * np.log(shares + 1e-30)).sum(axis=1)
 
 # Moran's I per week
-def morans_I(x, W_rs):
-    z = x - x.mean()
-    num = (W_rs * np.outer(z, z)).sum()
-    den = (z**2).sum() / len(z)
-    return num / den / W_rs.sum() * len(z)
+#
+# Fixed 2026-08-02. The previous implementation here used the row-standardised
+# weights together with a variance term already divided by n, and normalised by
+# W_rs.sum() rather than by the total weight of the binary matrix. It returned
+# values ~55x the published ones and, because the discrepancy is not a constant
+# factor (the ratio to the correct value ranges from -22 to +145 across weeks,
+# and changes sign), it did not preserve the post/pre ratio either: it gave
+# 1.399 against the published 1.496. It is replaced by the standard estimator
+#
+#     I = (n / S0) * (z' W z) / (z' z),   S0 = sum of all weights of binary W,
+#
+# which is the definition used in Methods and the one implemented in
+# regenerate_figs.py::moran_t that produced the published Figures and Table 2
+# (pre-transition mean 0.313, post-transition mean 0.468).
+S0 = W.sum()
 
-I_t = np.array([morans_I(shares[t], W_rs) for t in range(N_WEEKS)])
+def morans_I(x, W_bin, S0):
+    z = x - x.mean()
+    den = (z ** 2).sum()
+    if den == 0:
+        return np.nan
+    return (len(z) / S0) * (W_bin * np.outer(z, z)).sum() / den
+
+I_t = np.array([morans_I(shares[t], W, S0) for t in range(N_WEEKS)])
 
 # Regional shares
 NORTH = ['Hokkaido','Aomori','Iwate','Miyagi','Akita','Yamagata','Fukushima']
