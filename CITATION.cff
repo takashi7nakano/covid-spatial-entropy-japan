@@ -22,6 +22,10 @@ date-released: "2026-08-22"
 license: MIT
 repository-code: "https://github.com/takashi7nakano/covid-spatial-entropy-japan"
 doi: 10.5281/zenodo.22051486
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.20359404
+    description: "Zenodo concept DOI, resolving to the latest version of the software"
 preferred-citation:
   type: article
   title: "Two anti-phase spatial modes and a candidate spatial-persistence regime transition of SARS-CoV-2 in Japan: a prefecture-level sentinel surveillance study"

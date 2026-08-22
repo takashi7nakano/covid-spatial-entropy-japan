@@ -11,7 +11,8 @@ This repository contains the data and code needed to reproduce every
 quantitative result and figure in the manuscript.
 
 > Preprint: medRxiv DOI: 10.64898/2026.05.24.26353972 (https://doi.org/10.64898/2026.05.24.26353972), posted 26 May 2026
-> Archived release v1.1.0: Zenodo DOI: 10.5281/zenodo.22051486 (this version)
+> Archived release v1.1.0: Zenodo DOI: 10.5281/zenodo.22051486 (this version — the one the manuscript cites)
+> All versions: Zenodo concept DOI: 10.5281/zenodo.20359404 (always resolves to the latest version)
 
 See `CHANGELOG.md` for what changed in the current release. Version 1.1.0
 corrects a defect in the Moran's I implementation used by two of the pipeline
@@ -159,8 +160,10 @@ distinction that matters in the manuscript.
 ## Citing
 
 Please cite the preprint (medRxiv DOI: 10.64898/2026.05.24.26353972) and the archived code
-release (Zenodo DOI: 10.5281/zenodo.22051486). See `CITATION.cff` for machine-readable
-metadata.
+release. Cite the specific version you used — for the release accompanying the submitted
+manuscript this is Zenodo DOI 10.5281/zenodo.22051486 (v1.1.0). To refer to the software
+irrespective of version, use the concept DOI 10.5281/zenodo.20359404, which always resolves
+to the latest release. See `CITATION.cff` for machine-readable metadata.
 
 ## Licence
 
