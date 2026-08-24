@@ -21,7 +21,7 @@ version: "1.1.1"
 date-released: "2026-08-24"
 license: MIT
 repository-code: "https://github.com/takashi7nakano/covid-spatial-entropy-japan"
-doi: 10.5281/zenodo.22051486
+doi: 10.5281/zenodo.22073930
 identifiers:
   - type: doi
     value: 10.5281/zenodo.20359404
