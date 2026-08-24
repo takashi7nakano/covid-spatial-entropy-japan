@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Figures 1, 6 and 8 of the submitted manuscript, from the full 170-week record.
+"""Figures 1, 6 and 8 of the submitted manuscript, from the full 173-week record.
 
 The remaining figures (2, 3, 4, 5, 7) are produced by `regenerate_figs.py` and
 `make_fig7.py` from the frozen 159-week estimation window and are unchanged.
-This script is the only one that reads the 11 out-of-sample weeks
+This script is the only one that reads the 14 out-of-sample weeks
 (2026-W20 .. 2026-W30); no estimation is performed here.
 
 Outputs (repository `figures/submission/`, manuscript figure numbers):
@@ -65,7 +65,7 @@ CEIL = 3.80
 
 
 def build():
-    """Load the 170-week record and return (dates, per-sentinel rate matrix).
+    """Load the 173-week record and return (dates, per-sentinel rate matrix).
 
     `pref_full_n33.csv` stores the weekly prefecture shares p_i(t) and
     `combined_n33.csv` the national per-sentinel total cases(t) = sum_i x_i(t),
@@ -81,7 +81,7 @@ def build():
     assert cols == PREFS, 'unexpected prefecture column order'
     m = p.merge(c[['date', 'cases', 'window']], on='date')
     M = m[cols].values * m['cases'].values[:, None]
-    assert (m['window'] == 'out-of-sample').sum() == 11, 'expected 11 out-of-sample weeks'
+    assert (m['window'] == 'out-of-sample').sum() == 14, 'expected 14 out-of-sample weeks'
     return pd.to_datetime(m['date'].values), M
 
 
@@ -166,7 +166,7 @@ print('data %s .. %s (%d weeks)' % (dstr[0], dstr[-1], T))
 print('pre %d / post %d (of which 2026-W20..W30: %d)' % (pre.sum(), post.sum(), sum26.sum()))
 
 # =====================================================================
-# Figure 1 - wave template (panel A extended to 170 weeks; panel B unchanged)
+# Figure 1 - wave template (panel A extended to 173 weeks; panel B unchanged)
 # =====================================================================
 fig = plt.figure(figsize=(11.5, 8.0))
 axA = fig.add_subplot(2, 1, 1)
@@ -255,7 +255,7 @@ fig.tight_layout()
 save(fig, 'Fig1_wave_template.png')
 
 # =====================================================================
-# Figure 6 (Fig5 in the preprint) - phase plane (panel B extended to 170 weeks)
+# Figure 6 (Fig5 in the preprint) - phase plane (panel B extended to 173 weeks)
 # =====================================================================
 fig, (axA, axB) = plt.subplots(1, 2, figsize=(11.5, 5.2))
 epi_w = np.array([pd.Timestamp(d).isocalendar().week for d in dates])

@@ -74,8 +74,9 @@ covid-spatial-entropy-japan/
 │   ├── regenerate_figs.py       # stage 6: figures in preprint numbering
 │   ├── make_fig1_overlay.py     # stage 6: per-sentinel overlay panel
 │   ├── make_fig7.py             # stage 7: change-point panel
-│   ├── make_figs_extended.py    # stage 8: submission Figures 1, 6, 8 (170 weeks)
-│   ├── export_submission_figures.py  # stage 9: assemble figures/submission/
+│   ├── make_figs_extended.py    # stage 8: submission Figures 1, 6, 8 (173 weeks)
+│   ├── export_submission_figures.py  # stage 11: assemble figures/submission/
+│   ├── exploratory_measures.py  # stage 12: exploratory / descriptive measures
 │   └── epi_week_axis.py         # epidemiological-week x-axis helper
 ├── results/                     # generated .npz artefacts (created on run)
 ├── figures/                     # generated figures (created on run)
@@ -123,14 +124,14 @@ submission-numbered set, and is what the manuscript refers to.
 
 | Script output (preprint numbering) | Submission | Content | Window |
 | --- | --- | --- | --- |
-| `Fig1_wave_template` | **Figure 1** | Wave template, S(t) and national per-sentinel mean | 170 wk |
+| `Fig1_wave_template` | **Figure 1** | Wave template, S(t) and national per-sentinel mean | 173 wk |
 | `Fig7_changepoint` | **Figure 2** | Entropy-ceiling-failure change-point detection | 159 wk |
 | `Fig2_two_modes` | **Figure 3** | Two spatial modes (S vs Moran's I) | 159 wk |
 | `Fig3_seasonal_antiphase` | **Figure 4** | Seasonal anti-phase structure | 159 wk |
 | `Fig4_regime_transition` | **Figure 5** | Post-transition departure | 159 wk |
-| `Fig5_phase_plane` | **Figure 6** | Phase plane | 170 wk |
+| `Fig5_phase_plane` | **Figure 6** | Phase plane | 173 wk |
 | `Fig6_lagged_moran` | **Figure 7** | Time-lagged Moran's I | 159 wk |
-| — (new) | **Figure 8** | Out-of-sample test of the pre-specified criterion | 170 wk |
+| — (new) | **Figure 8** | Out-of-sample test of the pre-specified criterion | 173 wk |
 
 Figures 1, 6 and 8 are generated from the full record by
 `src/make_figs_extended.py`, which writes straight into `figures/submission/`.

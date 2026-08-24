@@ -1,5 +1,41 @@
 # Changelog
 
+## 1.1.1 — 2026-08-24
+
+Maintenance release. No analysis result changes; the numbers reported in the
+manuscript are unchanged. This release makes the pipeline run end to end from a
+clean clone and extends it to cover every quantity the manuscript reports.
+
+### Fixed
+
+- **`src/make_figs_extended.py` aborted `reproduce.sh`.** The loader asserted
+  eleven out-of-sample weeks, a value left over from the pre-freeze record. The
+  archived data contain fourteen (2026-W20 to 2026-W33), so stage 8 raised
+  `AssertionError: expected 11 out-of-sample weeks` and the run stopped there.
+  A clean clone therefore could not reproduce Figures 1, 6 and 8, or any later
+  stage. The assertion now matches the archived data.
+- Stale references to a "170-week record" and to "11 out-of-sample weeks" in
+  `src/make_figs_extended.py`, `src/export_submission_figures.py`,
+  `reproduce.sh` and `README.md`. The frozen record is 173 weeks.
+- Stage numbering in `reproduce.sh` was inconsistent (`[1/9]` … `[11/11]`).
+
+### Added
+
+- **`src/exploratory_measures.py` (stage 12).** The previous releases covered
+  the 159-week estimation pipeline and the figures, but not the exploratory and
+  descriptive quantities the manuscript also reports, so "the complete analysis
+  code" overstated what was archived. This script regenerates, from the archived
+  data alone: the cross-correlation profile between *S* and log national
+  amplitude; the post-transition summary of *S* with its moving-block-bootstrap
+  difference; the amplitude-adjusted era regression with boundary sensitivity
+  and the amplitude-matched permutation test; the coefficient of variation and
+  the synchrony fraction φ; the off-season participation ratios of
+  Supplementary Table S11.1; and the elapsed intervals of Supplementary
+  Table S14.1.
+- The principal era boundary for the amplitude-adjusted regression
+  (1 January 2026) is now stated explicitly in the code. Taking the change point
+  instead gives −0.160 rather than the reported −0.170.
+
 ## 1.1.0 — 2026-08-21
 
 Release accompanying the journal submission of the manuscript. It contains the

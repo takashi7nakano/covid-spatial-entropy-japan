@@ -17,8 +17,8 @@ authors:
   - family-names: Takashima
     given-names: Yoshihiro
     orcid: "https://orcid.org/0000-0001-8319-4653"
-version: "1.1.0"
-date-released: "2026-08-22"
+version: "1.1.1"
+date-released: "2026-08-24"
 license: MIT
 repository-code: "https://github.com/takashi7nakano/covid-spatial-entropy-japan"
 doi: 10.5281/zenodo.22051486

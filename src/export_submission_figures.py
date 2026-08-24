@@ -30,7 +30,7 @@ COPY = {
     'Fig6_lagged_moran':       'Fig7_lagged_moran',
 }
 
-# written directly by make_figs_extended.py, from the full 170-week record
+# written directly by make_figs_extended.py, from the full 173-week record
 FROM_EXTENDED = [
     'Fig1_wave_template',
     'Fig6_phase_plane',
@@ -39,8 +39,8 @@ FROM_EXTENDED = [
 
 # Emitted by the 159-week scripts but NOT part of the submission:
 #   Fig1_wave_template  (regenerate_figs / make_fig1_overlay) - superseded by the
-#                        170-week panel A, which is submission Figure 1
-#   Fig5_phase_plane     (regenerate_figs) - superseded by the 170-week panel B,
+#                        173-week panel A, which is submission Figure 1
+#   Fig5_phase_plane     (regenerate_figs) - superseded by the 173-week panel B,
 #                        which is submission Figure 6
 SUPERSEDED = ['Fig1_wave_template', 'Fig5_phase_plane']
 
@@ -79,7 +79,7 @@ def main():
     if got != expected:
         print('\nFigure numbers are not 1-8: %s' % sorted(got))
         sys.exit(1)
-    print('\nSuperseded by the 170-week versions, not submitted: %s'
+    print('\nSuperseded by the 173-week versions, not submitted: %s'
           % ', '.join(s + '.png' for s in SUPERSEDED))
     print('OK')
 
